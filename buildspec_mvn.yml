@@ -6,4 +6,4 @@ phases:
       - mvn clean package
 artifacts:
   files:
-    - target/messageUtil-1.0.jar
+    - target/maven-web-app.war
