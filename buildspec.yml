@@ -17,7 +17,6 @@ phases:
   post_build:
     commands:
       - echo Executing Post Build Phase 
-      - docker push $REPO_URL:$IMAGE_TAG
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
 artifacts:
   files:
