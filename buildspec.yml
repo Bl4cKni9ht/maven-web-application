@@ -1,0 +1,23 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - export CI_BRANCH_NAME="production"
+      - echo "==> CI_BRANCH_NAME = $CI_BRANCH_NAME"
+      - echo Logging into Amazon ECR
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - REPO_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
+      - echo "GIT COMMIT HASH  $CODEBUILD_RESOLVED_SOURCE_VERSION"
+      - IMAGE_TAG=${COMMIT_HASH}
+  build:
+    commands:
+      - echo Executing Build Phase
+      - docker build -t $REPO_URL:latest .
+      - docker tag $REPO_URL:latest $REPO_URL:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Executing Post Build Phase 
+      - docker push $REPO_URL:$IMAGE_TAG
+      - docker push $REPO_URL:latest
+
+  
