@@ -4,4 +4,6 @@ phases:
     commands:
       - echo Maven Build
       - mvn clean package
-
+artifacts:
+  files:
+    - target/messageUtil-1.0.jar
