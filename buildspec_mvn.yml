@@ -15,4 +15,4 @@ phases:
       - mvn clean package
 artifacts:
   files:
-    - maven-web-app.jar
+    - target/maven-web-app.jar
