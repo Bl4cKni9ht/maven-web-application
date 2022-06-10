@@ -4,6 +4,4 @@ phases:
     commands:
       - echo Maven Build
       - mvn clean package
-artifacts:
-  files:
-    - target/maven-web-app.jar
+
