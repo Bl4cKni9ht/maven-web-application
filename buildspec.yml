@@ -11,7 +11,9 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH}
   build:
     commands:
-      - echo Executing Build Phase
+      - echo Maven Build
+      - mvn clean package
+      - echo Creating Docker Image
       - docker build -t $REPO_URL:latest .
       - docker tag $REPO_URL:latest $REPO_URL:$IMAGE_TAG
   post_build:
@@ -19,5 +21,8 @@ phases:
       - echo Executing Post Build Phase 
       - docker push $REPO_URL:$IMAGE_TAG
       - docker push $REPO_URL:latest
-
+artifacts:
+  files:
+    - target/maven-web-app.jar
+  discard-paths: yes
   
